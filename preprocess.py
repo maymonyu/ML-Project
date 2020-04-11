@@ -90,6 +90,10 @@ with open(os.path.join(pro_dir, 'unique_sid.txt'), 'w') as f:
     for sid in unique_sid:
         f.write('%s\n' % sid)
 
+with open(os.path.join(pro_dir, 'unique_uid.txt'), 'w') as f:
+    for uid in unique_uid:
+        f.write('%s\n' % uid)
+
 
 def split_train_test_proportion(data, test_prop=0.2):
     data_grouped_by_user = data.groupby('userId')

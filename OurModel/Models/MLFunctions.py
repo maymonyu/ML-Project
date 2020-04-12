@@ -3,11 +3,9 @@ import numpy as np
 
 import torch
 import torch.utils.data
-from torch import nn, optim
-from torch.nn import functional as F
 from tqdm import tqdm_notebook as tqdm
 
-from Models.Batch import Batch
+from TheirModel.Models.Batch import Batch
 
 
 def log_norm_pdf(x, mu, logvar):

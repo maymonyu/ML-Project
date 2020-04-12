@@ -1,30 +1,17 @@
-import inline as inline
-import matplotlib
 import numpy as np
 # from scipy import sparse
 import matplotlib.pyplot as plt
 # %matplotlib inline
 
-import torch
 import torch.utils.data
-from torch import nn, optim
-from torch.nn import functional as F
+from torch import optim
 
-from tqdm import tqdm_notebook as tqdm
-import pickle
 import random
 from IPython.display import clear_output
 
-import json
-import re
-import ipykernel
-import requests
-from requests.compat import urljoin
-from notebook.notebookapp import list_running_servers
-
-import utils
-from Models.VAE import VAE
-from Models.MLFunctions import generate
+from TheirModel import utils
+from TheirModel.Models.VAE import VAE
+from TheirModel.Models.MLFunctions import generate
 
 seed = 1337
 random.seed(seed)

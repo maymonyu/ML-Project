@@ -1,22 +1,12 @@
-import inline as inline
-import matplotlib
 import numpy as np
 # from scipy import sparse
-import matplotlib.pyplot as plt
 # %matplotlib inline
 
 import torch
 import torch.utils.data
-from torch import nn, optim
+from torch import nn
 
-from torch.nn import functional as F
-
-from tqdm import tqdm_notebook as tqdm
-import pickle
-import random
-from IPython.display import clear_output
-
-from Models.MLFunctions import log_norm_pdf
+from TheirModel.Models.MLFunctions import log_norm_pdf
 
 
 class GaussianMixturePriorWithAprPost(nn.Module):

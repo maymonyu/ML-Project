@@ -2,11 +2,9 @@ import numpy as np
 
 import torch
 import torch.utils.data
-from torch import nn, optim
-from torch.nn import functional as F
+from torch import nn
 
-from tqdm import tqdm_notebook as tqdm
-from Models.MLFunctions import log_norm_pdf
+from TheirModel.Models.MLFunctions import log_norm_pdf
 
 
 class GaussianMixturePrior(nn.Module):

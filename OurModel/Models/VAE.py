@@ -2,15 +2,15 @@ import numpy as np
 
 import torch
 import torch.utils.data
-from torch import nn, optim
+from torch import nn
 from torch.nn import functional as F
 
 from tqdm import tqdm_notebook as tqdm
 
-from Models.GaussianMixturePriorWithAprPost import GaussianMixturePriorWithAprPost
-from Models.DeterministicDecoder import DeterministicDecoder
-from Models.MLFunctions import swish, log_norm_pdf
-from Models.Batch import Batch
+from TheirModel.Models.GaussianMixturePriorWithAprPost import GaussianMixturePriorWithAprPost
+from TheirModel.Models.DeterministicDecoder import DeterministicDecoder
+from TheirModel.Models.MLFunctions import swish, log_norm_pdf
+from TheirModel.Models.Batch import Batch
 
 
 class VAE(nn.Module):

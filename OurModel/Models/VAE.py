@@ -7,10 +7,10 @@ from torch.nn import functional as F
 
 from tqdm import tqdm_notebook as tqdm
 
-from TheirModel.Models.GaussianMixturePriorWithAprPost import GaussianMixturePriorWithAprPost
-from TheirModel.Models.DeterministicDecoder import DeterministicDecoder
-from TheirModel.Models.MLFunctions import swish, log_norm_pdf
-from TheirModel.Models.Batch import Batch
+from OurModel.Models.GaussianMixturePriorWithAprPost import GaussianMixturePriorWithAprPost
+from OurModel.Models.DeterministicDecoder import DeterministicDecoder
+from OurModel.Models.MLFunctions import swish, log_norm_pdf
+from OurModel.Models.Batch import Batch
 
 
 class VAE(nn.Module):

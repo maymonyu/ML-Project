@@ -9,9 +9,9 @@ from torch import optim
 import random
 from IPython.display import clear_output
 
-from TheirModel import utils
-from TheirModel.Models.VAE import VAE
-from TheirModel.Models.MLFunctions import generate
+from OurModel import utils
+from OurModel.Models.VAE import VAE
+from OurModel.Models.MLFunctions import generate
 
 seed = 1337
 random.seed(seed)

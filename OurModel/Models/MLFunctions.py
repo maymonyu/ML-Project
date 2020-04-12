@@ -5,7 +5,7 @@ import torch
 import torch.utils.data
 from tqdm import tqdm_notebook as tqdm
 
-from TheirModel.Models.Batch import Batch
+from OurModel.Models.Batch import Batch
 
 
 def log_norm_pdf(x, mu, logvar):

@@ -40,7 +40,7 @@ def load_tr_te_data(csv_file_tr, csv_file_te, n_items, n_users, global_indexing=
 
 
 def get_data(global_indexing=False, dataset='pro_sg'):
-    DATA_DIR = 'ml-20m/'
+    DATA_DIR = '../ml-20m/'
     pro_dir = os.path.join(DATA_DIR, dataset)
 
     unique_sid = list()

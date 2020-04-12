@@ -9,9 +9,9 @@ from torch import optim
 import random
 from IPython.display import clear_output
 
-from TheirModel import utils
-from TheirModel.Models.VAE import VAE
-from TheirModel.Models.MLFunctions import generate
+from OurModel import utils
+from OurModel.Models.VAE import VAE
+from OurModel.Models.MLFunctions import generate
 
 seed = 1337
 random.seed(seed)
@@ -150,22 +150,22 @@ for epoch in range(50):
     i_min = np.array(ndcgs_va_pr).argsort()[-len(ndcgs_va_pr) // 2:].min()
 
     print('ndcg', ndcgs_va_pr[-1], ': : :', best_ndcg)
-    fig, ax1 = plt.subplots()
-    fig.set_size_inches(15, 5)
-
-    ax1.plot(range(i_min, len(ndcgs_va_pr)), ndcgs_va_pr[i_min:], '+-', label='pr valid')
-    ax1.legend(loc='lower right')
-    ax1.grid(True)
-
-    ax2 = ax1.twinx()
-    ax2.plot(range(i_min, len(ndcgs_va_pr)), ndcgs_tr_pr[i_min:], '+:', label='pr train')
-    ax2.plot(range(i_min, len(ndcgs_va_pr)), ndcgs_tr_mf[i_min:], 'x:', label='mf train')
-    ax2.legend(loc='lower left')
-
-    fig.tight_layout()
-    plt.ylabel("Validation NDCG@100")
-    plt.xlabel("Epochs")
-    plt.show()
+    # fig, ax1 = plt.subplots()
+    # fig.set_size_inches(15, 5)
+    #
+    # ax1.plot(range(i_min, len(ndcgs_va_pr)), ndcgs_va_pr[i_min:], '+-', label='pr valid')
+    # ax1.legend(loc='lower right')
+    # ax1.grid(True)
+    #
+    # ax2 = ax1.twinx()
+    # ax2.plot(range(i_min, len(ndcgs_va_pr)), ndcgs_tr_pr[i_min:], '+:', label='pr train')
+    # ax2.plot(range(i_min, len(ndcgs_va_pr)), ndcgs_tr_mf[i_min:], 'x:', label='mf train')
+    # ax2.legend(loc='lower left')
+    #
+    # fig.tight_layout()
+    # plt.ylabel("Validation NDCG@100")
+    # plt.xlabel("Epochs")
+    # plt.show()
 
     if ndcg_ > best_ndcg:
         best_ndcg = ndcg_

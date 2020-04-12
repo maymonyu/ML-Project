@@ -6,7 +6,7 @@ import torch
 import torch.utils.data
 from torch import nn
 
-from TheirModel.Models.MLFunctions import log_norm_pdf
+from OurModel.Models.MLFunctions import log_norm_pdf
 
 
 class GaussianMixturePriorWithAprPost(nn.Module):

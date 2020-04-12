@@ -18,7 +18,7 @@ random.seed(seed)
 np.random.seed(seed)
 torch.manual_seed(seed)
 
-device = torch.device("cuda")
+device = torch.device("cpu")
 
 data = (x.astype('float32') for x in utils.get_data(global_indexing=False, dataset='pro_sg'))
 train_data, valid_1_data, valid_2_data, test_1_data, test_2_data = data
@@ -55,8 +55,8 @@ def validate(model, data_1, data_2, axis, mode, samples_perc_per_epoch=1):
                           samples_perc_per_epoch=samples_perc_per_epoch
                           ):
 
-        ratings = batch.get_ratings_to_dev()
-        idx = batch.get_idx_to_dev()
+        ratings = batch.get_ratings_to_device()
+        idx = batch.get_idx_to_device()
         ratings_test = batch.get_ratings(is_test=True)
 
         pred_val = model(ratings, idx, calculate_loss=False, mode=mode).cpu().detach().numpy()
@@ -79,8 +79,8 @@ def run(model, opts, train_data, batch_size, n_epochs, axis, beta, mode):
         KLD_loss = 0
 
         for batch in generate(batch_size=batch_size, device=device, axis=axis, data_1=train_data, shuffle=True):
-            ratings = batch.get_ratings_to_dev()
-            idx = batch.get_idx_to_dev()
+            ratings = batch.get_ratings_to_device()
+            idx = batch.get_idx_to_device()
 
             for optimizer in opts:
                 optimizer.zero_grad()
@@ -184,8 +184,8 @@ n100_list, r20_list, r50_list = [], [], []
 
 for batch in generate(batch_size=batch_size_test, device=device, axis='users', data_1=test_1_data, data_2=test_2_data,
                       samples_perc_per_epoch=1):
-    user_ratings = batch.get_ratings_to_dev()
-    users_idx = batch.get_idx_to_dev()
+    user_ratings = batch.get_ratings_to_device()
+    users_idx = batch.get_idx_to_device()
     user_ratings_test = batch.get_ratings(is_test=True)
 
     pred_val = model_i(user_ratings, users_idx, calculate_loss=False, mode='mf').cpu().detach().numpy()

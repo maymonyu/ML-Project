@@ -9,15 +9,16 @@ from tqdm import tqdm_notebook as tqdm
 
 from OurModel.Models.GaussianMixturePriorWithAprPost import GaussianMixturePriorWithAprPost
 from OurModel.Models.DeterministicDecoder import DeterministicDecoder
-from OurModel.Models.MLFunctions import swish, log_norm_pdf
+from OurModel.Models.MLFunctions import swish, log_norm_pdf, batch_data_sampler
 from OurModel.Models.Batch import Batch
 
 
 class VAE(nn.Module):
-    def __init__(self, hidden_dim, latent_dim, matrix_dim, axis, device):
+    def __init__(self, model_params, input_dim, axis, device):
         super(VAE, self).__init__()
+        hidden_dim, latent_dim, lr, encoder_opt_type, decoder_opt_type, embedding_opt_type = model_params
 
-        self.fc1 = nn.Linear(matrix_dim[1], hidden_dim)
+        self.fc1 = nn.Linear(input_dim[1], hidden_dim)
         self.ln1 = nn.LayerNorm(hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, hidden_dim)
         self.ln2 = nn.LayerNorm(hidden_dim)
@@ -30,12 +31,28 @@ class VAE(nn.Module):
         self.fc21 = nn.Linear(hidden_dim, latent_dim)
         self.fc22 = nn.Linear(hidden_dim, latent_dim)
 
-        self.prior = GaussianMixturePriorWithAprPost(latent_dim, matrix_dim[0])
-        self.decoder = DeterministicDecoder(latent_dim, matrix_dim[1])
+        self.prior = GaussianMixturePriorWithAprPost(latent_dim, input_dim[0])
+        self.decoder = DeterministicDecoder(latent_dim, input_dim[1])
 
         self.axis = axis
 
         self.device = device
+
+        self.lr = lr
+
+        decoder_params = set(self.decoder.parameters())
+        embedding_params = set(self.prior.user_mu.parameters()) | set(self.prior.user_logvar.parameters())
+        encoder_params = set(self.parameters()) - decoder_params - embedding_params
+
+        self.optimizer_encoder = encoder_opt_type(encoder_params, lr=self.lr)
+        self.optimizer_decoder = decoder_opt_type(decoder_params, lr=self.lr)
+        self.optimizer_embedding = embedding_opt_type(embedding_params, lr=self.lr)
+
+        self.opts = [self.optimizer_encoder, self.optimizer_decoder, self.optimizer_embedding]
+
+        print('encoder\n', [x.shape for x in encoder_params])
+        print('embedding\n', [x.shape for x in embedding_params])
+        print('decoder\n', [x.shape for x in decoder_params])
 
     def encode(self, x, dropout_rate):
         norm = x.pow(2).sum(dim=-1).sqrt()
@@ -92,9 +109,9 @@ class VAE(nn.Module):
         istraining = self.training
         self.eval()
 
-        for batch in generate(batch_size=500, device=self.device, data_1=train_data, axis=self.axis):
+        for batch in batch_data_sampler(batch_size=500, device=self.device, input_data=train_data, axis=self.axis):
 
-            user_ratings = batch.get_ratings_to_dev()
+            user_ratings = batch.get_ratings_to_device()
             users_idx = batch.get_idx()
 
             new_user_mu, new_user_logvar = self.encode(user_ratings, 0)
@@ -120,29 +137,3 @@ class VAE(nn.Module):
             self.train()
         else:
             self.eval()
-
-
-def generate(batch_size, device, axis, data_1, data_2=None, shuffle=False, samples_perc_per_epoch=1):
-    assert axis in ['users', 'items']
-    assert 0 < samples_perc_per_epoch <= 1
-
-    if axis == 'items':
-        data_1 = data_1.T
-        if data_2 is not None:
-            data_2 = data_2.T
-
-    total_samples = data_1.shape[0]
-    samples_per_epoch = int(total_samples * samples_perc_per_epoch)
-
-    if shuffle:
-        idxlist = np.arange(total_samples)
-        np.random.shuffle(idxlist)
-        idxlist = idxlist[:samples_per_epoch]
-    else:
-        idxlist = np.arange(samples_per_epoch)
-
-    for st_idx in tqdm(range(0, samples_per_epoch, batch_size)):
-        end_idx = min(st_idx + batch_size, samples_per_epoch)
-        idx = idxlist[st_idx:end_idx]
-
-        yield Batch(device, idx, data_1, data_2)

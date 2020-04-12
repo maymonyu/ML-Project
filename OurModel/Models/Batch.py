@@ -26,14 +26,14 @@ class Batch:
     def get_idx(self):
         return self._idx
 
-    def get_idx_to_dev(self):
+    def get_idx_to_device(self):
         return torch.LongTensor(self.get_idx()).to(self._device)
 
     def get_ratings(self, is_test=False):
         data = self._data_2 if is_test else self._data_1
         return data[self._idx]
 
-    def get_ratings_to_dev(self, is_test=False):
+    def get_ratings_to_device(self, is_test=False):
         return torch.Tensor(
             self.get_ratings(is_test).toarray()
         ).to(self._device)

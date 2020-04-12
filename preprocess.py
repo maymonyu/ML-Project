@@ -63,7 +63,7 @@ unique_uid = user_activity.index
 
 np.random.seed(98765)
 idx_perm = np.random.permutation(unique_uid.size)
-unique_uid = unique_uid[idx_perm]
+unique_uids = unique_uid[idx_perm]
 
 
 # create train/validation/test users

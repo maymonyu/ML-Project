@@ -48,16 +48,16 @@ def log_norm_std_pdf(x):
     return -0.5*(np.log(2 * np.pi) + x.pow(2))
 
 
-def generate(batch_size, device, axis, data_1, data_2=None, shuffle=False, samples_perc_per_epoch=1):
+def batch_data_sampler(batch_size, device, axis, input_data, output_data=None, shuffle=False, samples_perc_per_epoch=1):
     assert axis in ['users', 'items']
     assert 0 < samples_perc_per_epoch <= 1
 
     if axis == 'items':
-        data_1 = data_1.T
-        if data_2 is not None:
-            data_2 = data_2.T
+        input_data = input_data.T
+        if output_data is not None:
+            output_data = output_data.T
 
-    total_samples = data_1.shape[0]
+    total_samples = input_data.shape[0]
     samples_per_epoch = int(total_samples * samples_perc_per_epoch)
 
     if shuffle:
@@ -71,4 +71,4 @@ def generate(batch_size, device, axis, data_1, data_2=None, shuffle=False, sampl
         end_idx = min(st_idx + batch_size, samples_per_epoch)
         idx = idxlist[st_idx:end_idx]
 
-        yield Batch(device, idx, data_1, data_2)
+        yield Batch(device, idx, input_data, output_data)

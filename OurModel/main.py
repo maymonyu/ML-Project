@@ -102,7 +102,7 @@ def run(model, data, batch_size, n_epochs, axis, beta, mode):
 def display_results_graph(best_ranking_quality, ndcgs_va_pr, ndcgs_tr_pr):
     i_min = np.array(ndcgs_va_pr).argsort()[-len(ndcgs_va_pr) // 2:].min()
 
-    print('ndcg', ndcgs_va_pr[-1], ': : :', best_ranking_quality)
+    print('ndcg', ndcgs_va_pr[-1], ': : :', best_ndcg)
     fig, ax1 = plt.subplots()
     fig.set_size_inches(15, 5)
 
@@ -166,7 +166,6 @@ for epoch in range(50):
 
     # wait for graph to close
     clear_output(False)
-    display_results_graph(best_ranking_quality, ndcgs_va_pr, ndcgs_tr_pr)
 
     # compare model to best one seen so far
     if ndcg_ > best_ranking_quality:

@@ -124,7 +124,7 @@ def display_results_graph(best_ranking_quality, ndcgs_va_pr, ndcgs_tr_pr):
 # ______________________________  Main Code _________________________________________________
 
 
-device = torch.device("cpu")
+device = torch.device("cuda")
 init_seed()
 
 # Load Data
@@ -194,7 +194,7 @@ for batch in batch_data_sampler(batch_size=batch_size_test, device=device, axis=
     pred_val = current_model(user_ratings, users_idx, calculate_loss=False, mode='mf').cpu().detach().numpy()
     # exclude examples from training and validation (if any)
     pred_val[batch.get_ratings().nonzero()] = -np.inf
-    n100_list.append(utils.NDCG_binary_at_k_batch(pred_val, user_ratings_test, k=100))
+    n100_list.append(utils.NDCG_binary_at_k_batch(pred_val, user_ratings_test, k=10))
     r20_list.append(utils.Recall_at_k_batch(pred_val, user_ratings_test, k=20))
     r50_list.append(utils.Recall_at_k_batch(pred_val, user_ratings_test, k=50))
 

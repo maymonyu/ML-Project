@@ -40,7 +40,7 @@ def load_tr_te_data(csv_file_tr, csv_file_te, n_items, n_users, global_indexing=
 
 
 def get_data(global_indexing=False, dataset='pro_sg'):
-    DATA_DIR = './ml-20m/'
+    DATA_DIR = '../ml-1m/'
     pro_dir = os.path.join(DATA_DIR, dataset)
 
     unique_sid = list()
@@ -71,7 +71,7 @@ def get_data(global_indexing=False, dataset='pro_sg'):
     return train_data, vad_data_tr, vad_data_te, test_data_tr, test_data_te
 
 
-def NDCG_binary_at_k_batch(X_pred, heldout_batch, k=100):
+def NDCG_binary_at_k_batch(X_pred, heldout_batch, k=10):
     '''
     normalized discounted cumulative gain@k for binary relevance
     ASSUMPTIONS: all the 0's in heldout_data indicate 0 relevance

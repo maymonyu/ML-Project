@@ -21,7 +21,7 @@ import pandas as pd
 
 
 ### change `DATA_DIR` to the location where movielens-20m dataset sits
-DATA_DIR = 'ml-20m/'
+DATA_DIR = 'ml-1m/'
 
 raw_data = pd.read_csv(os.path.join(DATA_DIR, 'ratings.csv'), header=0)
 
@@ -68,7 +68,7 @@ unique_uids = unique_uid[idx_perm]
 
 # create train/validation/test users
 n_users = unique_uid.size
-n_heldout_users = 10000
+n_heldout_users = 1000
 
 tr_users = unique_uid[:(n_users - n_heldout_users * 2)]
 vd_users = unique_uid[(n_users - n_heldout_users * 2): (n_users - n_heldout_users)]

@@ -6,7 +6,7 @@ from torch import optim
 import random
 from IPython.display import clear_output
 
-from OurModel import utils
+from OurModel import utils, dataLoader
 from OurModel.Models.VAE import VAE
 from OurModel.Models.MLFunctions import batch_data_sampler
 
@@ -102,7 +102,7 @@ def run(model, data, batch_size, n_epochs, axis, beta, mode):
 def display_results_graph(best_ranking_quality, ndcgs_va_pr, ndcgs_tr_pr):
     i_min = np.array(ndcgs_va_pr).argsort()[-len(ndcgs_va_pr) // 2:].min()
 
-    print('ndcg', ndcgs_va_pr[-1], ': : :', best_ndcg)
+    print('ndcg', ndcgs_va_pr[-1], ': : :', best_ranking_quality)
     fig, ax1 = plt.subplots()
     fig.set_size_inches(15, 5)
 
@@ -124,14 +124,13 @@ def display_results_graph(best_ranking_quality, ndcgs_va_pr, ndcgs_tr_pr):
 # ______________________________  Main Code _________________________________________________
 
 
-device = torch.device("cuda")
+device = torch.device("cpu")
 init_seed()
 
 # Load Data
-data = (x.astype('float32') for x in utils.get_data(global_indexing=False, dataset='pro_sg'))
+data = dataLoader.data_loader()
 # for validation and testing 20% of rating data used to compare with prediction
-train_data, valid_input_data, valid_output_data, test_input_data, test_output_data = data
-n_users, n_items = train_data.shape
+train_data, valid_input_data, valid_output_data, test_input_data, test_output_data, n_users, n_items = data
 print(n_items, n_users)
 
 # best_ranking_quality = information retrieval metrics for ranking quality: Recall@k and NDCG@k
@@ -159,7 +158,7 @@ for epoch in range(50):
     axis = 'users'
     ndcg_ = validate(current_model, train_data, train_data, axis, 'mf', 0.01)
     ndcgs_tr_mf.append(ndcg_)
-    ndcg_ = validate(current_model, train_data, train_data, axis, 'pr', 0.01)
+    ndcg_ = validate(current_model, valid_input_data, valid_output_data, axis, 'pr', 0.01)
     ndcgs_tr_pr.append(ndcg_)
     ndcg_ = validate(current_model, valid_input_data, valid_output_data, axis, 'pr', 1)
     ndcgs_va_pr.append(ndcg_)
@@ -185,8 +184,8 @@ batch_size_test = 2000
 current_model.eval()
 n100_list, r20_list, r50_list = [], [], []
 
-for batch in batch_data_sampler(batch_size=batch_size_test, device=device, axis='users', input_data=test_input_data, output_data=test_output_data,
-                                samples_perc_per_epoch=1):
+for batch in batch_data_sampler(batch_size=batch_size_test, device=device, axis='users', input_data=test_input_data,
+                                output_data=test_output_data, samples_perc_per_epoch=1):
     user_ratings = batch.get_ratings_to_device()
     users_idx = batch.get_idx_to_device()
     user_ratings_test = batch.get_ratings(is_test=True)

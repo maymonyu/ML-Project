@@ -130,7 +130,7 @@ init_seed()
 # Load Data
 data = dataLoader.data_loader()
 # for validation and testing 20% of rating data used to compare with prediction
-train_data, valid_input_data, valid_output_data, test_input_data, test_output_data, n_users, n_items = data
+train_input_data, train_output_data, valid_input_data, valid_output_data, test_input_data, test_output_data, n_users, n_items = data
 print(n_items, n_users)
 
 # best_ranking_quality = information retrieval metrics for ranking quality: Recall@k and NDCG@k
@@ -142,7 +142,7 @@ var_param_distance = []
 # Set Model
 model_params = get_model_params()
 current_model = VAE(model_params, input_dim=(n_users, n_items), axis='users', device=device).to(device)
-current_model.set_embeddings(train_data)
+current_model.set_embeddings(train_input_data)
 print(current_model)
 
 
@@ -151,12 +151,12 @@ print(current_model)
 best_model = current_model
 for epoch in range(50):
     # Train
-    run(current_model, train_data, batch_size=500, n_epochs=3, axis='users', mode='pr', beta=0.005)
-    current_model.set_embeddings(train_data)
-    run(current_model, train_data, batch_size=500, n_epochs=1, axis='users', mode='mf', beta=None)
+    run(current_model, train_input_data, batch_size=500, n_epochs=3, axis='users', mode='pr', beta=0.005)
+    current_model.set_embeddings(train_input_data)
+    run(current_model, train_input_data, batch_size=500, n_epochs=1, axis='users', mode='mf', beta=None)
 
     axis = 'users'
-    ndcg_ = validate(current_model, train_data, train_data, axis, 'mf', 0.01)
+    ndcg_ = validate(current_model, train_input_data, train_output_data, axis, 'mf', 0.01)
     ndcgs_tr_mf.append(ndcg_)
     ndcg_ = validate(current_model, valid_input_data, valid_output_data, axis, 'pr', 0.01)
     ndcgs_tr_pr.append(ndcg_)

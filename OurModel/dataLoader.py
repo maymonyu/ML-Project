@@ -40,6 +40,37 @@ def split_train_val_test_proportion(data, val_prop=0.1,test_prop=0.1):
     return data_tr, data_val, data_te
 
 
+def split_data(data):
+    data_grouped_by_user = data.groupby('user')
+    tr_x_list, val_x_list, te_x_list = list(), list(), list()
+    tr_y_list, val_y_list, te_y_list = list(), list(), list()
+
+    for i, (_, group) in enumerate(data_grouped_by_user):
+        n_items_u = len(group)
+
+        if n_items_u >= 3:
+            tr_x_list.append(group[:-3])
+            tr_y_list.append(group[1:-2])
+
+            val_x_list.append(group[1:-2])
+            val_y_list.append(group[2:-1])
+
+            te_x_list.append(group[2:-1])
+            te_y_list.append(group[3:])
+        else:
+            tr_x_list.append(group[:-1])
+            tr_y_list.append(group[1:])
+
+    data_tr_x = pd.concat(tr_x_list)
+    data_te_x = pd.concat(te_x_list)
+    data_val_x = pd.concat(val_x_list)
+    data_tr_y = pd.concat(tr_y_list)
+    data_te_y = pd.concat(te_y_list)
+    data_val_y = pd.concat(val_y_list)
+
+    return data_tr_x, data_tr_y, data_val_x, data_val_y, data_te_x, data_te_y
+
+
 def split_train_test_proportion(data, test_prop=0.2):
     data_grouped_by_user = data.groupby('user')
     tr_list, te_list = list(), list()
@@ -82,48 +113,30 @@ def data_partition(data_filename):
     show2id = dict((sid, i) for (i, sid) in enumerate(unique_sid))
     profile2id = dict((pid, i) for (i, pid) in enumerate(unique_uid))
 
-    train_data, val_data, test_data = split_train_val_test_proportion(data_table, 0.1, 0.1)
-    val_tr_data, val_te_data = split_train_test_proportion(val_data)
-    test_tr_data, test_te_data = split_train_test_proportion(test_data)
-
-    print(get_count(data_table, 'user'))
-    print(get_count(train_data, 'user'))
-    print(get_count(val_data, 'user'))
-    print(get_count(test_data, 'user'))
+    train_data_x, train_data_y, val_data_x,  val_data_y, test_data_x, test_data_y = split_data(data_table)
 
     if not os.path.exists(pro_dir):
         os.makedirs(pro_dir)
 
-    train_data = numerize(train_data, show2id, profile2id)
-    train_data.to_csv(os.path.join(pro_dir, 'train.csv'), index=False)
+    train_data_x = numerize(train_data_x, show2id, profile2id)
+    train_data_x.to_csv(os.path.join(pro_dir, 'train_x.csv'), index=False)
+    train_data_y = numerize(train_data_y, show2id, profile2id)
+    train_data_y.to_csv(os.path.join(pro_dir, 'train_y.csv'), index=False)
 
-    val_tr_data = numerize(val_tr_data, show2id, profile2id)
-    val_tr_data.to_csv(os.path.join(pro_dir, 'validation_input.csv'), index=False)
-    val_te_data = numerize(val_te_data, show2id, profile2id)
-    val_te_data.to_csv(os.path.join(pro_dir, 'validation_output.csv'), index=False)
+    val_data_x = numerize(val_data_x, show2id, profile2id)
+    val_data_x.to_csv(os.path.join(pro_dir, 'validation_x.csv'), index=False)
+    val_data_y = numerize(val_data_y, show2id, profile2id)
+    val_data_y.to_csv(os.path.join(pro_dir, 'validation_y.csv'), index=False)
 
-    test_tr_data = numerize(test_tr_data, show2id, profile2id)
-    test_tr_data.to_csv(os.path.join(pro_dir, 'test_input.csv'), index=False)
-    test_te_data = numerize(test_te_data, show2id, profile2id)
-    test_te_data.to_csv(os.path.join(pro_dir, 'test_output.csv'), index=False)
+    test_data_x = numerize(test_data_x, show2id, profile2id)
+    test_data_x.to_csv(os.path.join(pro_dir, 'test_x.csv'), index=False)
+    test_data_y = numerize(test_data_y, show2id, profile2id)
+    test_data_y.to_csv(os.path.join(pro_dir, 'test_y.csv'), index=False)
 
     return len(unique_uid), len(unique_sid)
 
 
-def load_train_data(csv_file, n_items, n_users, global_indexing=False):
-    tp = pd.read_csv(csv_file)
-
-    n_users = n_users if global_indexing else tp['user'].max() + 1
-
-    rows, cols = tp['user'], tp['item']
-    data = sparse.csr_matrix((np.ones_like(rows),
-                              (rows, cols)), dtype='float64',
-                             shape=(n_users, n_items))
-    print(data[0])
-    return data
-
-
-def load_tr_te_data(csv_file_tr, csv_file_te, n_items, n_users):
+def load_x_y_data(csv_file_tr, csv_file_te, n_items, n_users):
     tp_tr = pd.read_csv(csv_file_tr)
     tp_te = pd.read_csv(csv_file_te)
 
@@ -147,11 +160,11 @@ def data_loader():
     # run this line for the first time
     n_users, n_items = data_partition('ml-1m')
 
-    train_data = load_train_data(os.path.join(pro_dir, 'train.csv'), n_items, n_users)
-    validation_tr_data, validation_te_data = load_tr_te_data(
-        os.path.join(pro_dir, 'validation_input.csv'), os.path.join(pro_dir, 'validation_output.csv'),
-        n_items, n_users)
-    test_tr_data, test_te_data = load_tr_te_data(
-        os.path.join(pro_dir, 'test_input.csv'), os.path.join(pro_dir, 'test_output.csv'),
-        n_items, n_users)
-    return train_data, validation_tr_data, validation_te_data, test_tr_data, test_te_data, n_users, n_items
+    train_data_x, train_data_y = load_x_y_data(os.path.join(pro_dir, 'train_x.csv'),
+                                               os.path.join(pro_dir, 'train_y.csv'), n_items, n_users)
+    val_data_x, val_data_y = load_x_y_data(os.path.join(pro_dir, 'validation_x.csv'),
+                                           os.path.join(pro_dir, 'validation_y.csv'), n_items, n_users)
+    test_data_x, test_data_y = load_x_y_data(os.path.join(pro_dir, 'test_x.csv'),
+                                             os.path.join(pro_dir, 'test_y.csv'), n_items, n_users)
+
+    return train_data_x, train_data_y,   val_data_x, val_data_y, test_data_x, test_data_y, n_users, n_items

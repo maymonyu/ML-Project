@@ -1,0 +1,398 @@
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-19 10:34:51.253596
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+| epoch   1 |  1000/ 4531 batches | ms/batch 38.54 | loss 677.8392
+| epoch   1 |  2000/ 4531 batches | ms/batch 41.24 | loss 594.9770
+| epoch   1 |  3000/ 4531 batches | ms/batch 40.69 | loss 595.9130
+| epoch   1 |  4000/ 4531 batches | ms/batch 41.04 | loss 597.6100
+| epoch   1 |  4531/ 4531 batches | ms/batch 41.30 | loss 539.6044
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-19 12:03:42.522695
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+| epoch   1 |  1000/ 4531 batches | ms/batch 32.78 | loss 662.7694
+| epoch   1 |  2000/ 4531 batches | ms/batch 35.36 | loss 606.9329
+| epoch   1 |  3000/ 4531 batches | ms/batch 36.02 | loss 549.7029
+| epoch   1 |  4000/ 4531 batches | ms/batch 41.48 | loss 585.3212
+| epoch   1 |  4531/ 4531 batches | ms/batch 36.69 | loss 538.7098
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 186.35s | loss = 497.6528 | NDCG@10 = 17.6763 | Rec@10 = 11.925 | Prec@10 = 13.85 | NDCG@100 = 28.4279 | Rec@100 = 46.0684 | Prec@100 = 6.78 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 186.35s | loss = 492.1665 | NDCG@10 = 14.2388 | Rec@10 = 9.6694 | Prec@10 = 12.0 | NDCG@100 = 25.0397 | Rec@100 = 42.3196 | Prec@100 = 6.2947 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   2 |  1000/ 4531 batches | ms/batch 40.45 | loss 556.8772
+| epoch   2 |  2000/ 4531 batches | ms/batch 40.04 | loss 562.9509
+| epoch   2 |  3000/ 4531 batches | ms/batch 38.27 | loss 557.4050
+| epoch   2 |  4000/ 4531 batches | ms/batch 38.43 | loss 551.1220
+| epoch   2 |  4531/ 4531 batches | ms/batch 37.55 | loss 546.5101
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 200.56s | loss = 483.5766 | NDCG@10 = 19.3897 | Rec@10 = 14.0789 | Prec@10 = 15.0 | NDCG@100 = 30.781 | Rec@100 = 49.7323 | Prec@100 = 7.255 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 200.56s | loss = 482.259 | NDCG@10 = 16.107 | Rec@10 = 10.7972 | Prec@10 = 13.44 | NDCG@100 = 27.0282 | Rec@100 = 44.8491 | Prec@100 = 6.5653 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   3 |  1000/ 4531 batches | ms/batch 40.80 | loss 533.0439
+| epoch   3 |  2000/ 4531 batches | ms/batch 39.73 | loss 540.8735
+| epoch   3 |  3000/ 4531 batches | ms/batch 37.51 | loss 521.5468
+| epoch   3 |  4000/ 4531 batches | ms/batch 39.78 | loss 573.3450
+| epoch   3 |  4531/ 4531 batches | ms/batch 40.66 | loss 569.0990
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 201.83s | loss = 477.4567 | NDCG@10 = 18.4619 | Rec@10 = 13.1735 | Prec@10 = 14.3 | NDCG@100 = 31.2016 | Rec@100 = 51.2142 | Prec@100 = 7.58 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 201.83s | loss = 477.305 | NDCG@10 = 16.3554 | Rec@10 = 11.0633 | Prec@10 = 13.8667 | NDCG@100 = 27.4922 | Rec@100 = 46.2308 | Prec@100 = 6.748 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   4 |  1000/ 4531 batches | ms/batch 38.74 | loss 526.4869
+| epoch   4 |  2000/ 4531 batches | ms/batch 37.30 | loss 527.1224
+| epoch   4 |  3000/ 4531 batches | ms/batch 38.43 | loss 532.0055
+| epoch   4 |  4000/ 4531 batches | ms/batch 40.21 | loss 550.6373
+| epoch   4 |  4531/ 4531 batches | ms/batch 40.91 | loss 576.6271
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 198.02s | loss = 474.0786 | NDCG@10 = 18.5723 | Rec@10 = 13.6398 | Prec@10 = 14.35 | NDCG@100 = 30.8141 | Rec@100 = 51.0144 | Prec@100 = 7.15 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 198.02s | loss = 476.0966 | NDCG@10 = 15.0189 | Rec@10 = 10.4369 | Prec@10 = 12.68 | NDCG@100 = 26.3116 | Rec@100 = 44.896 | Prec@100 = 6.3947 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   5 |  1000/ 4531 batches | ms/batch 44.49 | loss 546.0735
+| epoch   5 |  2000/ 4531 batches | ms/batch 41.68 | loss 530.3469
+| epoch   5 |  3000/ 4531 batches | ms/batch 42.32 | loss 548.0958
+| epoch   5 |  4000/ 4531 batches | ms/batch 41.66 | loss 507.8212
+| epoch   5 |  4531/ 4531 batches | ms/batch 40.77 | loss 544.0443
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 215.06s | loss = 467.1083 | NDCG@10 = 19.6921 | Rec@10 = 14.7842 | Prec@10 = 15.75 | NDCG@100 = 31.8584 | Rec@100 = 52.2283 | Prec@100 = 7.67 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 215.06s | loss = 472.5102 | NDCG@10 = 17.1527 | Rec@10 = 11.9867 | Prec@10 = 14.2533 | NDCG@100 = 28.2673 | Rec@100 = 46.5647 | Prec@100 = 6.7467 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   6 |  1000/ 4531 batches | ms/batch 39.43 | loss 514.2640
+| epoch   6 |  2000/ 4531 batches | ms/batch 42.67 | loss 522.5308
+| epoch   6 |  3000/ 4531 batches | ms/batch 39.72 | loss 514.1514
+| epoch   6 |  4000/ 4531 batches | ms/batch 39.63 | loss 556.8285
+| epoch   6 |  4531/ 4531 batches | ms/batch 38.19 | loss 564.3644
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 202.08s | loss = 464.5155 | NDCG@10 = 22.3511 | Rec@10 = 15.8675 | Prec@10 = 17.7 | NDCG@100 = 33.3271 | Rec@100 = 52.4672 | Prec@100 = 7.905 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 202.08s | loss = 470.8822 | NDCG@10 = 16.378 | Rec@10 = 11.303 | Prec@10 = 13.92 | NDCG@100 = 28.1191 | Rec@100 = 47.153 | Prec@100 = 6.8933 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   7 |  1000/ 4531 batches | ms/batch 37.65 | loss 539.4902
+| epoch   7 |  2000/ 4531 batches | ms/batch 37.37 | loss 497.2813
+| epoch   7 |  3000/ 4531 batches | ms/batch 37.79 | loss 524.6968
+| epoch   7 |  4000/ 4531 batches | ms/batch 37.69 | loss 525.1975
+| epoch   7 |  4531/ 4531 batches | ms/batch 42.74 | loss 580.2245
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 194.48s | loss = 462.6651 | NDCG@10 = 20.6421 | Rec@10 = 15.271 | Prec@10 = 16.75 | NDCG@100 = 32.464 | Rec@100 = 52.1616 | Prec@100 = 7.71 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 194.48s | loss = 470.566 | NDCG@10 = 16.7061 | Rec@10 = 11.7255 | Prec@10 = 14.3333 | NDCG@100 = 27.8537 | Rec@100 = 46.4219 | Prec@100 = 6.8267 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   8 |  1000/ 4531 batches | ms/batch 39.19 | loss 538.8182
+| epoch   8 |  2000/ 4531 batches | ms/batch 39.74 | loss 542.7153
+| epoch   8 |  3000/ 4531 batches | ms/batch 38.41 | loss 524.4260
+| epoch   8 |  4000/ 4531 batches | ms/batch 39.17 | loss 513.7872
+| epoch   8 |  4531/ 4531 batches | ms/batch 40.12 | loss 495.4781
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 199.62s | loss = 462.4666 | NDCG@10 = 21.8669 | Rec@10 = 15.3061 | Prec@10 = 17.5 | NDCG@100 = 34.1113 | Rec@100 = 54.4453 | Prec@100 = 8.295 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 199.62s | loss = 471.2231 | NDCG@10 = 17.8502 | Rec@10 = 12.068 | Prec@10 = 14.68 | NDCG@100 = 29.4384 | Rec@100 = 48.1927 | Prec@100 = 7.14 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   9 |  1000/ 4531 batches | ms/batch 39.45 | loss 516.4727
+| epoch   9 |  2000/ 4531 batches | ms/batch 41.56 | loss 528.7482
+| epoch   9 |  3000/ 4531 batches | ms/batch 37.13 | loss 518.2694
+| epoch   9 |  4000/ 4531 batches | ms/batch 39.30 | loss 531.9589
+| epoch   9 |  4531/ 4531 batches | ms/batch 42.00 | loss 528.4977
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 201.16s | loss = 459.2219 | NDCG@10 = 21.3273 | Rec@10 = 15.3526 | Prec@10 = 16.95 | NDCG@100 = 33.9276 | Rec@100 = 53.9855 | Prec@100 = 8.07 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 201.16s | loss = 469.5279 | NDCG@10 = 16.7557 | Rec@10 = 11.4258 | Prec@10 = 14.04 | NDCG@100 = 28.294 | Rec@100 = 47.1539 | Prec@100 = 6.8227 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  10 |  1000/ 4531 batches | ms/batch 38.82 | loss 520.4868
+| epoch  10 |  2000/ 4531 batches | ms/batch 37.39 | loss 514.2151
+| epoch  10 |  3000/ 4531 batches | ms/batch 48.09 | loss 529.6566
+| epoch  10 |  4000/ 4531 batches | ms/batch 40.15 | loss 521.3101
+| epoch  10 |  4531/ 4531 batches | ms/batch 52.36 | loss 530.4910
+-----------------------------------------------------------------------------------------
+| end of epoch  10 | time: 221.39s | loss = 457.5848 | NDCG@10 = 23.5141 | Rec@10 = 16.4563 | Prec@10 = 18.6 | NDCG@100 = 34.6899 | Rec@100 = 53.5901 | Prec@100 = 8.1 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  10 | time: 221.39s | loss = 468.7961 | NDCG@10 = 17.5009 | Rec@10 = 12.3604 | Prec@10 = 14.64 | NDCG@100 = 29.0206 | Rec@100 = 48.1984 | Prec@100 = 7.064 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  11 |  1000/ 4531 batches | ms/batch 40.01 | loss 514.4385
+| epoch  11 |  2000/ 4531 batches | ms/batch 39.87 | loss 516.0917
+| epoch  11 |  3000/ 4531 batches | ms/batch 38.81 | loss 528.2480
+| epoch  11 |  4000/ 4531 batches | ms/batch 38.65 | loss 531.5765
+| epoch  11 |  4531/ 4531 batches | ms/batch 38.70 | loss 508.6904
+-----------------------------------------------------------------------------------------
+| end of epoch  11 | time: 198.94s | loss = 456.7198 | NDCG@10 = 21.6609 | Rec@10 = 15.4505 | Prec@10 = 17.15 | NDCG@100 = 33.9164 | Rec@100 = 53.8131 | Prec@100 = 7.98 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  11 | time: 198.94s | loss = 469.208 | NDCG@10 = 16.6282 | Rec@10 = 11.5085 | Prec@10 = 14.1867 | NDCG@100 = 28.3357 | Rec@100 = 47.4076 | Prec@100 = 6.8907 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  12 |  1000/ 4531 batches | ms/batch 37.87 | loss 499.5682
+| epoch  12 |  2000/ 4531 batches | ms/batch 46.00 | loss 515.5214
+| epoch  12 |  3000/ 4531 batches | ms/batch 52.21 | loss 515.0970
+| epoch  12 |  4000/ 4531 batches | ms/batch 51.17 | loss 533.8565
+| epoch  12 |  4531/ 4531 batches | ms/batch 50.74 | loss 546.9178
+-----------------------------------------------------------------------------------------
+| end of epoch  12 | time: 236.00s | loss = 455.1212 | NDCG@10 = 22.2356 | Rec@10 = 15.6692 | Prec@10 = 17.55 | NDCG@100 = 34.1185 | Rec@100 = 53.5186 | Prec@100 = 7.94 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  12 | time: 236.00s | loss = 469.8958 | NDCG@10 = 16.8861 | Rec@10 = 11.8211 | Prec@10 = 14.2267 | NDCG@100 = 28.2634 | Rec@100 = 46.8546 | Prec@100 = 6.8173 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  13 |  1000/ 4531 batches | ms/batch 38.74 | loss 501.0058
+| epoch  13 |  2000/ 4531 batches | ms/batch 39.88 | loss 520.1133
+| epoch  13 |  3000/ 4531 batches | ms/batch 39.47 | loss 529.4206
+| epoch  13 |  4000/ 4531 batches | ms/batch 38.73 | loss 514.9327
+| epoch  13 |  4531/ 4531 batches | ms/batch 39.38 | loss 533.4377
+-----------------------------------------------------------------------------------------
+| end of epoch  13 | time: 199.40s | loss = 453.2856 | NDCG@10 = 24.3811 | Rec@10 = 17.2312 | Prec@10 = 19.5 | NDCG@100 = 36.1539 | Rec@100 = 56.2301 | Prec@100 = 8.325 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  13 | time: 199.40s | loss = 469.5755 | NDCG@10 = 16.8068 | Rec@10 = 11.4458 | Prec@10 = 14.0667 | NDCG@100 = 28.5562 | Rec@100 = 47.7606 | Prec@100 = 7.0133 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  14 |  1000/ 4531 batches | ms/batch 38.24 | loss 491.7226
+| epoch  14 |  2000/ 4531 batches | ms/batch 40.88 | loss 534.3993
+| epoch  14 |  3000/ 4531 batches | ms/batch 38.88 | loss 505.5131
+| epoch  14 |  4000/ 4531 batches | ms/batch 39.01 | loss 518.0995
+| epoch  14 |  4531/ 4531 batches | ms/batch 40.18 | loss 551.9717
+-----------------------------------------------------------------------------------------
+| end of epoch  14 | time: 199.82s | loss = 451.8774 | NDCG@10 = 23.124 | Rec@10 = 16.2349 | Prec@10 = 17.95 | NDCG@100 = 35.2702 | Rec@100 = 54.8449 | Prec@100 = 8.165 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  14 | time: 199.82s | loss = 468.9535 | NDCG@10 = 16.9011 | Rec@10 = 11.8473 | Prec@10 = 14.1467 | NDCG@100 = 28.4197 | Rec@100 = 47.675 | Prec@100 = 6.9053 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  15 |  1000/ 4531 batches | ms/batch 38.78 | loss 495.6484
+| epoch  15 |  2000/ 4531 batches | ms/batch 39.26 | loss 524.8318
+| epoch  15 |  3000/ 4531 batches | ms/batch 38.41 | loss 503.7135
+| epoch  15 |  4000/ 4531 batches | ms/batch 39.88 | loss 519.7202
+| epoch  15 |  4531/ 4531 batches | ms/batch 41.10 | loss 551.5792
+-----------------------------------------------------------------------------------------
+| end of epoch  15 | time: 199.66s | loss = 448.7669 | NDCG@10 = 23.6362 | Rec@10 = 16.7225 | Prec@10 = 19.3 | NDCG@100 = 34.8875 | Rec@100 = 54.7649 | Prec@100 = 8.295 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  15 | time: 199.66s | loss = 468.3278 | NDCG@10 = 16.9289 | Rec@10 = 11.7453 | Prec@10 = 14.2533 | NDCG@100 = 28.592 | Rec@100 = 47.9721 | Prec@100 = 6.968 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  16 |  1000/ 4531 batches | ms/batch 39.64 | loss 515.8483
+| epoch  16 |  2000/ 4531 batches | ms/batch 38.93 | loss 518.7038
+| epoch  16 |  3000/ 4531 batches | ms/batch 38.33 | loss 494.2917
+| epoch  16 |  4000/ 4531 batches | ms/batch 40.11 | loss 527.1587
+| epoch  16 |  4531/ 4531 batches | ms/batch 39.15 | loss 520.5584
+-----------------------------------------------------------------------------------------
+| end of epoch  16 | time: 199.24s | loss = 449.7656 | NDCG@10 = 24.0738 | Rec@10 = 16.4919 | Prec@10 = 18.8 | NDCG@100 = 36.0654 | Rec@100 = 56.1756 | Prec@100 = 8.415 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  16 | time: 199.24s | loss = 468.7763 | NDCG@10 = 16.9818 | Rec@10 = 11.7592 | Prec@10 = 14.2533 | NDCG@100 = 28.6318 | Rec@100 = 47.4271 | Prec@100 = 6.9267 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  17 |  1000/ 4531 batches | ms/batch 40.14 | loss 527.8834
+| epoch  17 |  2000/ 4531 batches | ms/batch 39.82 | loss 511.4573
+| epoch  17 |  3000/ 4531 batches | ms/batch 38.55 | loss 503.8389
+| epoch  17 |  4000/ 4531 batches | ms/batch 50.95 | loss 506.4896
+| epoch  17 |  4531/ 4531 batches | ms/batch 70.52 | loss 522.2536
+-----------------------------------------------------------------------------------------
+| end of epoch  17 | time: 250.40s | loss = 449.9348 | NDCG@10 = 23.8766 | Rec@10 = 16.9304 | Prec@10 = 18.55 | NDCG@100 = 35.3055 | Rec@100 = 54.7075 | Prec@100 = 8.275 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  17 | time: 250.40s | loss = 469.994 | NDCG@10 = 16.8811 | Rec@10 = 11.3845 | Prec@10 = 14.2533 | NDCG@100 = 28.299 | Rec@100 = 47.3845 | Prec@100 = 6.9053 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  18 |  1000/ 4531 batches | ms/batch 72.00 | loss 510.7387
+| epoch  18 |  2000/ 4531 batches | ms/batch 65.49 | loss 509.3183
+| epoch  18 |  3000/ 4531 batches | ms/batch 60.03 | loss 495.6145
+| epoch  18 |  4000/ 4531 batches | ms/batch 36.68 | loss 521.4509
+| epoch  18 |  4531/ 4531 batches | ms/batch 38.96 | loss 541.5823
+-----------------------------------------------------------------------------------------
+| end of epoch  18 | time: 275.99s | loss = 450.3712 | NDCG@10 = 24.2219 | Rec@10 = 17.5447 | Prec@10 = 18.9 | NDCG@100 = 35.3771 | Rec@100 = 54.1031 | Prec@100 = 8.035 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  18 | time: 275.99s | loss = 469.252 | NDCG@10 = 16.7403 | Rec@10 = 11.8115 | Prec@10 = 14.24 | NDCG@100 = 28.3366 | Rec@100 = 47.6676 | Prec@100 = 6.8453 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  19 |  1000/ 4531 batches | ms/batch 41.25 | loss 512.5764
+| epoch  19 |  2000/ 4531 batches | ms/batch 39.74 | loss 503.3777
+| epoch  19 |  3000/ 4531 batches | ms/batch 38.29 | loss 518.6825
+| epoch  19 |  4000/ 4531 batches | ms/batch 37.94 | loss 519.4802
+| epoch  19 |  4531/ 4531 batches | ms/batch 39.60 | loss 499.2444
+-----------------------------------------------------------------------------------------
+| end of epoch  19 | time: 198.99s | loss = 447.6422 | NDCG@10 = 24.9432 | Rec@10 = 16.2004 | Prec@10 = 19.7 | NDCG@100 = 35.9522 | Rec@100 = 54.6516 | Prec@100 = 8.405 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  19 | time: 198.99s | loss = 469.2884 | NDCG@10 = 17.0124 | Rec@10 = 11.5081 | Prec@10 = 14.3467 | NDCG@100 = 28.5598 | Rec@100 = 47.4044 | Prec@100 = 6.948 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  20 |  1000/ 4531 batches | ms/batch 38.13 | loss 497.9817
+| epoch  20 |  2000/ 4531 batches | ms/batch 40.71 | loss 533.0298
+| epoch  20 |  3000/ 4531 batches | ms/batch 38.08 | loss 470.6596
+| epoch  20 |  4000/ 4531 batches | ms/batch 39.27 | loss 510.9393
+| epoch  20 |  4531/ 4531 batches | ms/batch 42.79 | loss 572.5417
+-----------------------------------------------------------------------------------------
+| end of epoch  20 | time: 201.13s | loss = 447.0041 | NDCG@10 = 25.0625 | Rec@10 = 18.6801 | Prec@10 = 19.7 | NDCG@100 = 36.0192 | Rec@100 = 55.6794 | Prec@100 = 8.305 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  20 | time: 201.13s | loss = 470.3459 | NDCG@10 = 16.6255 | Rec@10 = 11.3889 | Prec@10 = 13.92 | NDCG@100 = 28.358 | Rec@100 = 47.4372 | Prec@100 = 6.928 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  21 |  1000/ 4531 batches | ms/batch 38.17 | loss 479.0526
+| epoch  21 |  2000/ 4531 batches | ms/batch 40.37 | loss 516.8587
+| epoch  21 |  3000/ 4531 batches | ms/batch 41.37 | loss 543.0335
+| epoch  21 |  4000/ 4531 batches | ms/batch 42.84 | loss 495.4185
+| epoch  21 |  4531/ 4531 batches | ms/batch 42.84 | loss 523.2458
+-----------------------------------------------------------------------------------------
+| end of epoch  21 | time: 208.81s | loss = 447.9411 | NDCG@10 = 25.3234 | Rec@10 = 17.0257 | Prec@10 = 19.9 | NDCG@100 = 36.7607 | Rec@100 = 55.5709 | Prec@100 = 8.295 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  21 | time: 208.81s | loss = 470.4206 | NDCG@10 = 17.1154 | Rec@10 = 12.1411 | Prec@10 = 14.4533 | NDCG@100 = 28.6817 | Rec@100 = 48.0567 | Prec@100 = 6.924 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  22 |  1000/ 4531 batches | ms/batch 39.60 | loss 510.6646
+| epoch  22 |  2000/ 4531 batches | ms/batch 36.67 | loss 475.7918
+| epoch  22 |  3000/ 4531 batches | ms/batch 39.62 | loss 532.9916
+| epoch  22 |  4000/ 4531 batches | ms/batch 42.04 | loss 526.6578
+| epoch  22 |  4531/ 4531 batches | ms/batch 38.76 | loss 495.2411
+-----------------------------------------------------------------------------------------
+| end of epoch  22 | time: 200.15s | loss = 446.3041 | NDCG@10 = 27.3765 | Rec@10 = 18.1415 | Prec@10 = 20.4 | NDCG@100 = 37.9894 | Rec@100 = 56.466 | Prec@100 = 8.485 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  22 | time: 200.15s | loss = 470.5523 | NDCG@10 = 17.707 | Rec@10 = 12.2762 | Prec@10 = 14.92 | NDCG@100 = 28.7842 | Rec@100 = 47.279 | Prec@100 = 6.9693 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  23 |  1000/ 4531 batches | ms/batch 40.70 | loss 512.5848
+| epoch  23 |  2000/ 4531 batches | ms/batch 38.80 | loss 503.2095
+| epoch  23 |  3000/ 4531 batches | ms/batch 37.53 | loss 511.7939
+| epoch  23 |  4000/ 4531 batches | ms/batch 39.19 | loss 510.0416
+| epoch  23 |  4531/ 4531 batches | ms/batch 38.17 | loss 500.7306
+-----------------------------------------------------------------------------------------
+| end of epoch  23 | time: 198.16s | loss = 447.428 | NDCG@10 = 25.228 | Rec@10 = 17.2218 | Prec@10 = 19.6 | NDCG@100 = 36.8809 | Rec@100 = 56.8063 | Prec@100 = 8.53 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  23 | time: 198.16s | loss = 470.9667 | NDCG@10 = 16.9003 | Rec@10 = 11.6581 | Prec@10 = 14.28 | NDCG@100 = 28.1852 | Rec@100 = 46.7429 | Prec@100 = 6.892 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  24 |  1000/ 4531 batches | ms/batch 42.58 | loss 496.4315
+| epoch  24 |  2000/ 4531 batches | ms/batch 39.55 | loss 506.4240
+| epoch  24 |  3000/ 4531 batches | ms/batch 41.46 | loss 523.3893
+| epoch  24 |  4000/ 4531 batches | ms/batch 36.99 | loss 502.3595
+| epoch  24 |  4531/ 4531 batches | ms/batch 38.99 | loss 514.5133
+-----------------------------------------------------------------------------------------
+| end of epoch  24 | time: 204.86s | loss = 444.8797 | NDCG@10 = 24.6153 | Rec@10 = 16.4387 | Prec@10 = 19.2 | NDCG@100 = 36.6061 | Rec@100 = 56.2755 | Prec@100 = 8.485 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  24 | time: 204.86s | loss = 471.6077 | NDCG@10 = 16.5362 | Rec@10 = 11.6803 | Prec@10 = 14.1067 | NDCG@100 = 27.8179 | Rec@100 = 46.5071 | Prec@100 = 6.8693 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch  25 |  1000/ 4531 batches | ms/batch 38.19 | loss 495.8629
+| epoch  25 |  2000/ 4531 batches | ms/batch 41.78 | loss 499.9186
+| epoch  25 |  3000/ 4531 batches | ms/batch 42.79 | loss 532.1320
+| epoch  25 |  4000/ 4531 batches | ms/batch 41.76 | loss 490.2193
+| epoch  25 |  4531/ 4531 batches | ms/batch 44.20 | loss 529.7223
+-----------------------------------------------------------------------------------------
+| end of epoch  25 | time: 211.19s | loss = 444.3193 | NDCG@10 = 25.9964 | Rec@10 = 17.5033 | Prec@10 = 20.6 | NDCG@100 = 37.2175 | Rec@100 = 56.4316 | Prec@100 = 8.495 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch  25 | time: 211.19s | loss = 471.6421 | NDCG@10 = 16.4053 | Rec@10 = 11.6093 | Prec@10 = 13.8533 | NDCG@100 = 27.9605 | Rec@100 = 46.9076 | Prec@100 = 6.8293 (VAL)
+-----------------------------------------------------------------------------------------
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-25 11:01:48.557439
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+| epoch   1 |  1000/ 4531 batches | ms/batch 52.93 | loss 599.3378
+| epoch   1 |  2000/ 4531 batches | ms/batch 62.92 | loss 587.9437
+| epoch   1 |  3000/ 4531 batches | ms/batch 50.20 | loss 609.0725
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-25 11:17:06.428565
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+| epoch   1 |  1000/ 4531 batches | ms/batch 29.31 | loss 633.3649
+| epoch   1 |  2000/ 4531 batches | ms/batch 36.79 | loss 596.4939
+| epoch   1 |  3000/ 4531 batches | ms/batch 35.93 | loss 563.0771
+| epoch   1 |  4000/ 4531 batches | ms/batch 37.86 | loss 583.3753
+| epoch   1 |  4531/ 4531 batches | ms/batch 38.29 | loss 593.7167
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 180.67s | loss = 496.4303 | NDCG@10 = 16.6429 | Rec@10 = 11.079 | Prec@10 = 14.15 | NDCG@100 = 27.9043 | Rec@100 = 48.0201 | Prec@100 = 7.01 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 180.67s | loss = 492.0593 | NDCG@10 = 15.0897 | Rec@10 = 9.9208 | Prec@10 = 12.8533 | NDCG@100 = 25.7862 | Rec@100 = 43.5708 | Prec@100 = 6.532 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   2 |  1000/ 4531 batches | ms/batch 37.35 | loss 536.2932
+| epoch   2 |  2000/ 4531 batches | ms/batch 38.24 | loss 569.1620

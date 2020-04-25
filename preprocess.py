@@ -1,34 +1,9 @@
-import os
-import shutil
 import sys
 
+import os
 import numpy as np
-# from scipy import sparse
-
-import matplotlib.pyplot as plt
-# %matplotlib inline
-
-# import seaborn as sn
-# sn.set()
-
 import pandas as pd
 
-# import tensorflow as tf
-# from tensorflow.contrib.layers import apply_regularization, l2_regularizer
-#
-# import bottleneck as bn
-
-
-
-### change `DATA_DIR` to the location where movielens-20m dataset sits
-DATA_DIR = 'ml-1m/'
-
-raw_data = pd.read_csv(os.path.join(DATA_DIR, 'ratings.csv'), header=0)
-
-# binarize the data (only keep ratings >= 4)
-raw_data = raw_data[raw_data['rating'] > 3.5]
-
-raw_data.head()
 
 def get_count(tp, id):
     playcount_groupbyid = tp[[id]].groupby(id, as_index=False)
@@ -52,48 +27,6 @@ def filter_triplets(tp, min_uc=5, min_sc=0):
     usercount, itemcount = get_count(tp, 'userId'), get_count(tp, 'movieId')
     return tp, usercount, itemcount
 
-raw_data, user_activity, item_popularity = filter_triplets(raw_data)
-
-sparsity = 1. * raw_data.shape[0] / (user_activity.shape[0] * item_popularity.shape[0])
-
-print("After filtering, there are %d watching events from %d users and %d movies (sparsity: %.3f%%)" %
-      (raw_data.shape[0], user_activity.shape[0], item_popularity.shape[0], sparsity * 100))
-
-unique_uid = user_activity.index
-
-np.random.seed(98765)
-idx_perm = np.random.permutation(unique_uid.size)
-unique_uids = unique_uid[idx_perm]
-
-
-# create train/validation/test users
-n_users = unique_uid.size
-n_heldout_users = 1000
-
-tr_users = unique_uid[:(n_users - n_heldout_users * 2)]
-vd_users = unique_uid[(n_users - n_heldout_users * 2): (n_users - n_heldout_users)]
-te_users = unique_uid[(n_users - n_heldout_users):]
-
-train_plays = raw_data.loc[raw_data['userId'].isin(tr_users)]
-
-unique_sid = pd.unique(train_plays['movieId'])
-
-show2id = dict((sid, i) for (i, sid) in enumerate(unique_sid))
-profile2id = dict((pid, i) for (i, pid) in enumerate(unique_uid))
-
-pro_dir = os.path.join(DATA_DIR, 'pro_sg')
-
-if not os.path.exists(pro_dir):
-    os.makedirs(pro_dir)
-
-with open(os.path.join(pro_dir, 'unique_sid.txt'), 'w') as f:
-    for sid in unique_sid:
-        f.write('%s\n' % sid)
-
-with open(os.path.join(pro_dir, 'unique_uid.txt'), 'w') as f:
-    for uid in unique_uid:
-        f.write('%s\n' % uid)
-
 
 def split_train_test_proportion(data, test_prop=0.2):
     data_grouped_by_user = data.groupby('userId')
@@ -106,7 +39,9 @@ def split_train_test_proportion(data, test_prop=0.2):
 
         if n_items_u >= 5:
             idx = np.zeros(n_items_u, dtype='bool')
-            idx[np.random.choice(n_items_u, size=int(test_prop * n_items_u), replace=False).astype('int64')] = True
+            # idx[np.random.choice(n_items_u, size=int(test_prop * n_items_u), replace=False).astype('int64')] = True
+            idx[int((1.0 - test_prop) * n_items_u):] = True
+            # print(idx)
 
             tr_list.append(group[np.logical_not(idx)])
             te_list.append(group[idx])
@@ -123,34 +58,97 @@ def split_train_test_proportion(data, test_prop=0.2):
     return data_tr, data_te
 
 
-vad_plays = raw_data.loc[raw_data['userId'].isin(vd_users)]
-vad_plays = vad_plays.loc[vad_plays['movieId'].isin(unique_sid)]
-
-vad_plays_tr, vad_plays_te = split_train_test_proportion(vad_plays)
-
-test_plays = raw_data.loc[raw_data['userId'].isin(te_users)]
-test_plays = test_plays.loc[test_plays['movieId'].isin(unique_sid)]
-
-test_plays_tr, test_plays_te = split_train_test_proportion(test_plays)
+def numerize(tp, profile2id, show2id):
+    uid = list(map(lambda x: profile2id[x], tp['userId']))
+    sid = list(map(lambda x: show2id[x], tp['movieId']))
+    ra = list(map(lambda x: x, tp['rating']))
+    ret = pd.DataFrame(data={'uid': uid, 'sid': sid, 'rating': ra}, columns=['uid', 'sid', 'rating'])
+    ret['rating'] = ret['rating'].apply(pd.to_numeric)
+    return ret
 
 
-def numerize(tp):
-    uid = map(lambda x: profile2id[x], tp['userId'])
-    sid = map(lambda x: show2id[x], tp['movieId'])
-    return pd.DataFrame(data={'uid': list(uid), 'sid': list(sid)}, columns=['uid', 'sid'])
+def preprocess(hyper_params):
+    DATA_DIR = hyper_params['data_base']
+    pro_dir = os.path.join(DATA_DIR, 'pro_sg')  # Path where preprocessed data will be saved
+    hyper_params['data_base'] += 'pro_sg/'
 
+    if not os.path.isdir(pro_dir):  # We don't want to keep preprocessing every time we run the notebook
+        cols = ['userId', 'movieId', 'rating', 'timestamp']
+        dtypes = {'userId': 'int', 'movieId': 'int', 'timestamp': 'int', 'rating': 'int'}
+        raw_data = pd.read_csv(os.path.join(DATA_DIR, 'ratings.dat'), sep='::', names=cols, parse_dates=['timestamp'])
 
-train_data = numerize(train_plays)
-train_data.to_csv(os.path.join(pro_dir, 'train.csv'), index=False)
+        max_seq_len = 1000
+        n_heldout_users = 750  # If total users = N; train_users = N - 2*heldout; test_users & val_users = heldout
 
-vad_data_tr = numerize(vad_plays_tr)
-vad_data_tr.to_csv(os.path.join(pro_dir, 'validation_tr.csv'), index=False)
+        # binarize the data (only keep ratings >= 4)
+        raw_data = raw_data[raw_data['rating'] > 3.5]
 
-vad_data_te = numerize(vad_plays_te)
-vad_data_te.to_csv(os.path.join(pro_dir, 'validation_te.csv'), index=False)
+        # Remove users with greater than $max_seq_len number of watched movies
+        raw_data = raw_data.groupby(["userId"]).filter(lambda x: len(x) <= max_seq_len)
 
-test_data_tr = numerize(test_plays_tr)
-test_data_tr.to_csv(os.path.join(pro_dir, 'test_tr.csv'), index=False)
+        # Sort data values with the timestamp
+        raw_data = raw_data.groupby(["userId"]).apply(lambda x: x.sort_values(["timestamp"], ascending=True)).reset_index(
+            drop=True)
 
-test_data_te = numerize(test_plays_te)
-test_data_te.to_csv(os.path.join(pro_dir, 'test_te.csv'), index=False)
+        raw_data.head()
+
+    if not os.path.isdir(pro_dir):  # We don't want to keep preprocessing every time we run the notebook
+
+        raw_data, user_activity, item_popularity = filter_triplets(raw_data)
+
+        sparsity = 1. * raw_data.shape[0] / (user_activity.shape[0] * item_popularity.shape[0])
+
+        print("After filtering, there are %d watching events from %d users and %d movies (sparsity: %.3f%%)" %
+              (raw_data.shape[0], user_activity.shape[0], item_popularity.shape[0], sparsity * 100))
+
+        unique_uid = user_activity.index
+
+        np.random.seed(98765)
+        idx_perm = np.random.permutation(unique_uid.size)
+        unique_uid = unique_uid[idx_perm]
+
+        # create train/validation/test users
+        n_users = unique_uid.size
+
+        tr_users = unique_uid[:(n_users - n_heldout_users * 2)]
+        vd_users = unique_uid[(n_users - n_heldout_users * 2): (n_users - n_heldout_users)]
+        te_users = unique_uid[(n_users - n_heldout_users):]
+
+        train_plays = raw_data.loc[raw_data['userId'].isin(tr_users)]
+
+        unique_sid = pd.unique(train_plays['movieId'])
+
+        show2id = dict((sid, i) for (i, sid) in enumerate(unique_sid))
+        profile2id = dict((pid, i) for (i, pid) in enumerate(unique_uid))
+
+        if not os.path.exists(pro_dir):
+            os.makedirs(pro_dir)
+
+        with open(os.path.join(pro_dir, 'unique_sid.txt'), 'w') as f:
+            for sid in unique_sid:
+                f.write('%s\n' % sid)
+
+        vad_plays = raw_data.loc[raw_data['userId'].isin(vd_users)]
+        vad_plays = vad_plays.loc[vad_plays['movieId'].isin(unique_sid)]
+
+        vad_plays_tr, vad_plays_te = split_train_test_proportion(vad_plays)
+
+        test_plays = raw_data.loc[raw_data['userId'].isin(te_users)]
+        test_plays = test_plays.loc[test_plays['movieId'].isin(unique_sid)]
+
+        test_plays_tr, test_plays_te = split_train_test_proportion(test_plays)
+
+        train_data = numerize(train_plays, profile2id, show2id)
+        train_data.to_csv(os.path.join(pro_dir, 'train.csv'), index=False)
+
+        vad_data_tr = numerize(vad_plays_tr, profile2id, show2id)
+        vad_data_tr.to_csv(os.path.join(pro_dir, 'validation_tr.csv'), index=False)
+
+        vad_data_te = numerize(vad_plays_te, profile2id, show2id)
+        vad_data_te.to_csv(os.path.join(pro_dir, 'validation_te.csv'), index=False)
+
+        test_data_tr = numerize(test_plays_tr, profile2id, show2id)
+        test_data_tr.to_csv(os.path.join(pro_dir, 'test_tr.csv'), index=False)
+
+        test_data_te = numerize(test_plays_te, profile2id, show2id)
+        test_data_te.to_csv(os.path.join(pro_dir, 'test_te.csv'), index=False)

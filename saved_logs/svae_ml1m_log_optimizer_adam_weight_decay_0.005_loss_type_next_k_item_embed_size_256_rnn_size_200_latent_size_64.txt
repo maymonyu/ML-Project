@@ -396,3 +396,137 @@ Starting Training...
 -----------------------------------------------------------------------------------------
 | epoch   2 |  1000/ 4531 batches | ms/batch 37.35 | loss 536.2932
 | epoch   2 |  2000/ 4531 batches | ms/batch 38.24 | loss 569.1620
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-25 11:43:00.233769
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-25 11:44:29.550604
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-25 11:45:44.074946
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+| epoch   1 |  1000/ 4531 batches | ms/batch 29.79 | loss 656.7573
+Started reading data file
+Data Files loaded!
+
+
+Simulation run on: 2020-04-25 11:51:57.626475
+
+
+Data reading complete!
+Number of train batches: 4531
+Number of validation batches:  750
+Number of test batches:  750
+Total Items: 3474
+
+Model(
+  (encoder): Encoder(
+    (linear1): Linear(in_features=200, out_features=150, bias=True)
+    (activation): Tanh()
+  )
+  (decoder): Decoder(
+    (linear1): Linear(in_features=64, out_features=150, bias=True)
+    (linear2): Linear(in_features=150, out_features=3474, bias=True)
+    (activation): Tanh()
+  )
+  (item_embed): Embedding(3474, 256)
+  (gru): GRU(256, 200, batch_first=True)
+  (linear1): Linear(in_features=150, out_features=128, bias=True)
+  (tanh): Tanh()
+)
+
+Model Built!
+Starting Training...
+
+| epoch   1 |  1000/ 4531 batches | ms/batch 29.64 | loss 655.9497
+| epoch   1 |  2000/ 4531 batches | ms/batch 36.55 | loss 625.4179
+| epoch   1 |  3000/ 4531 batches | ms/batch 36.78 | loss 593.1824
+| epoch   1 |  4000/ 4531 batches | ms/batch 35.42 | loss 558.8307
+| epoch   1 |  4531/ 4531 batches | ms/batch 36.44 | loss 582.3010
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 177.58s | loss = 502.7554 | NDCG@10 = 15.9448 | Rec@10 = 11.7506 | Prec@10 = 13.95 | NDCG@100 = 26.5852 | Rec@100 = 45.4333 | Prec@100 = 6.84 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 177.58s | loss = 495.7445 | NDCG@10 = 14.6405 | Rec@10 = 10.1278 | Prec@10 = 12.3867 | NDCG@100 = 24.884 | Rec@100 = 42.2027 | Prec@100 = 6.148 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   2 |  1000/ 4531 batches | ms/batch 36.06 | loss 547.4634
+| epoch   2 |  2000/ 4531 batches | ms/batch 36.62 | loss 560.8445
+| epoch   2 |  3000/ 4531 batches | ms/batch 36.50 | loss 558.3333
+| epoch   2 |  4000/ 4531 batches | ms/batch 36.32 | loss 555.5780
+| epoch   2 |  4531/ 4531 batches | ms/batch 37.53 | loss 591.7424
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 187.90s | loss = 485.8669 | NDCG@10 = 17.5285 | Rec@10 = 12.2751 | Prec@10 = 13.95 | NDCG@100 = 29.8363 | Rec@100 = 49.5409 | Prec@100 = 7.29 (TRAIN)
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 187.90s | loss = 484.0745 | NDCG@10 = 16.145 | Rec@10 = 10.8599 | Prec@10 = 13.5733 | NDCG@100 = 26.9064 | Rec@100 = 44.9048 | Prec@100 = 6.588 (VAL)
+-----------------------------------------------------------------------------------------
+| epoch   3 |  1000/ 4531 batches | ms/batch 35.89 | loss 528.4910
+| epoch   3 |  2000/ 4531 batches | ms/batch 36.11 | loss 530.2169
+| epoch   3 |  3000/ 4531 batches | ms/batch 35.34 | loss 522.8514
+| epoch   3 |  4000/ 4531 batches | ms/batch 38.96 | loss 592.7437
